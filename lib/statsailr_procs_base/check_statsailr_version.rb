@@ -2,7 +2,7 @@ module StatSailr
   module ProcsBase
     def self.check_statsailr_version
       statsailr_version = StatSailr::VERSION
-      statsailr_version_at_least = "0.7.1"
+      statsailr_version_at_least = "0.7.5"
       return version_should_be_at_least( statsailr_version , statsailr_version_at_least ) 
     end
 

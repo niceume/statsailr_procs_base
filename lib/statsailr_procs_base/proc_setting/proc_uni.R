@@ -102,4 +102,25 @@ sts_uni$qqplot = function( results , var = NULL , qqline = FALSE, ... ){
   }
 }
 
+sts_uni$hist = function( data, vars ){
+  if ( (! is.null(var)) && (length(var) != 1) ){
+    stop("main argument needs to be length of 1 character vector")
+  }
+
+  size = length(vars)
+  par(mfrow(size, 1))
+
+  for( i in seq(1, size)){
+    var = vars[[i]]
+    g = data[[var]]
+    h <- hist(g, breaks = 10, density = 10,
+            col = "lightgray", xlab = "Accuracy", main = "Overall")
+    xfit <- seq(min(g), max(g), length = 40)
+    yfit <- dnorm(xfit, mean = mean(g), sd = sd(g))
+    yfit <- yfit * diff(h$mids[1:2]) * length(g)
+
+    lines(xfit, yfit, col = "black", lwd = 2)
+  }
+
+}
 
