@@ -76,7 +76,7 @@ end
 * setting.plot_opt
     + true/false
         + Under the situation where graphics device does not show on display and tries to output to a file, this setting is valid.
-            + If true, StatSailr conducts dev.copy() at the end of this current instruction, and saves graphics device content to file.
+            + If true, StatSailr saves graphics device content to file using Cairo.capture() and writePNG()/writeJPEG().
         + If the current graphics device outputs to display, this setting is useless and ignored.
 
 
@@ -92,7 +92,8 @@ The following methods can be used to parse and convert PROC instruction main arg
 * read_as_realvec
 * read_as_symbol
 * read_symbols_as_strvec
-
+* read_symbols_or_functions_as_strvec
+* read_named_args_as_named_strvec
 
 
 ## More about setting.runtime_args
@@ -115,6 +116,11 @@ This setting is used to access objects that are generated at runtime, and pass t
     + (e.g.) 'setting.runtime_args = {"data" => one_from( result("factor", "numeric"), param("data")) }' means the following
         + If there are already instructions of "factor" or "numeric", use the last result of them.
         + If not, object that is specified by "data" in PROC options in used.
+* previous_or() method
+    + previous_or() can access the previous instruction result.
+    + previous_or() takes an argument as its default object.  When the instruction is the first one in PROC block, there is no previous result. This default value is used in such a situation.
+* previous_inst_name() method
+    + previous_inst_name() can access the previous instruction name.
 
 
 ## Enable custom R function
@@ -162,7 +168,7 @@ module ProcPrint
 
 StatSailr PROC instruction settings can be shared by multiple setting modules. The shared setting can be included using add_setting_from() method defined in ProcSettingModule. The included file is also written in module, and the format is almost the same.
 
-In thee following example, ProcScatter or ProPlot?????? include DevCopySetting which provides functionality of dev.copy() function. 
+In the following example, ProcScatter or ProPlot?????? include DevCopySetting which provides functionality of dev.copy() function.
 
 
 ```
