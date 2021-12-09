@@ -1,5 +1,6 @@
 module ProcGgplot
   include ProcSettingModule
+  add_setting_from( __dir__, "proc_common/factor.rb" )
 
   source_r_file( __dir__, File.basename(__FILE__ , ".rb") + ".R")
   validate_option("data", is_a: ["SymbolR", "String"], as: "SymbolR" , required: true)

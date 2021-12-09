@@ -22,6 +22,7 @@ module ProcUni
     setting.runtime_args = {"results" => result("var")}
     setting.store_result = false
     setting.print_opt = false
+    setting.plot_opt = true
   end
 end
 
